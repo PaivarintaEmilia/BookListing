@@ -24,6 +24,12 @@ const db = new pg.Client({
 
 // Loput koodista pysyy ennallaan...
 
+
+// Reitti, joka näyttää index.ejs-tiedoston
+app.get("/", (req, res) => {
+  res.render("index.ejs");
+});
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
