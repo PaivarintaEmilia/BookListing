@@ -27,7 +27,7 @@ const db = new pg.Client({
 
 // Reitti, joka näyttää index.ejs-tiedoston
 app.get("/", (req, res) => {
-  res.render("index.ejs");
+  res.render("addEditBook.ejs");
 });
 
 app.listen(port, () => {

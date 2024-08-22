@@ -1,10 +1,361 @@
 * {
     margin: 0;
     font-family: "Poppins", sans-serif;
-    font-weight: 400;
     font-style: normal;
 }
 
+
+
+
+/* HOME */
+
+
+/* Hero */
+
+#hero-container {
+    border: 1px solid saddlebrown;
+    background-color: rgb(170, 76, 33);
+    background-image: url("/photos/cover.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 200px;
+}
+
+#hero-box-container {
+    border: 1px solid rgb(255, 0, 13);
+    display: grid;
+    gap: 10rem;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 50rem 50rem;
+}
+
+
+#title-container {
+    border: 3px solid rgb(60, 255, 0);
+    grid-column: span 1;
+    grid-row: span 2;
+    display: flex;
+    align-items: center; /*Vertikaalisesti keskittää containerin sisällä*/
+    padding: 150px;
+    border-radius: 15px;
+}
+
 h1 {
-    font-size: 300px;
+    font-size: 9rem;
+    color: white;
+    font-weight: 200;
+}
+
+
+#add-new-book-container {
+    border: 3px solid rgb(195, 0, 255);
+    grid-column: span 1;
+    padding: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertikaalinen tasaus */
+    gap: 35px;
+    border-radius: 15px;
+}
+
+#add-new-book-container > p {
+    font-size: 5rem;
+    color: white;
+    font-weight: 200;
+    align-self: center;
+}
+
+#add-new-book-container > button {
+    font-size: 5rem;
+    padding: 15px 60px;
+    background-color: #FFA048;
+    color: black;
+    border-radius: 100px;
+}
+
+#quote-container {
+    border: 3px solid rgb(255, 251, 0);
+    grid-row: span 1;
+    color: rgba(0, 0, 0, 0.993);
+    background-color: #FFA048;
+    border-radius: 15px;
+    padding: 150px;
+
+}
+
+#quote {
+    font-size: 5rem;
+}
+
+#quote-name {
+    font-size: 3rem;
+    margin-top: 15px;
+}
+
+
+/* Extras */
+
+.blur-background {
+    background-color: rgba(0, 0, 0, 0.67); /* Musta väri, 67% opacity */
+    backdrop-filter: blur(25px); /* Taustasumennus */
+    -webkit-backdrop-filter: blur(14px); /* Safari-tuki taustasumennukselle */
+    border-radius: 15px;
+}
+
+
+
+
+/* My book listing */
+
+h2 {
+    font-size: 7rem;
+    font-weight: 500;
+    margin-top: 100px;
+    margin-left: 200px;
+}
+
+#book-item-container {
+    border: 6px solid rgb(255, 251, 0);
+    font-size: 6rem;
+    padding: 200px;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    padding-bottom: 0px;
+}
+
+#book-item-data-container {
+    border: 6px solid rgb(0, 255, 64);
+    padding-right: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+h3 {
+    font-size: 5.5rem;
+    font-weight: 500;
+}
+
+#book-item-data-container > p {
+    color: rgb(49, 49, 49);
+    font-size: 3rem;
+    margin-top: 55px;
+}
+
+#book-data-container {
+    border: 6px solid rgb(3, 217, 255);
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+}
+
+#book-data-container > p {
+    color: black;
+    font-size: 3rem;
+}
+
+#book-img-container {
+    border: 6px solid rgb(174, 0, 255);
+    padding: 100px;
+    padding-right: 0px;
+    overflow: hidden; /* Piilota kuvan osat, jotka ylittävät containerin */
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Asettaa kuvan peittämään koko elementin */
+}
+
+#edit-book-data-container {
+    border: 3px solid rgb(0, 255, 64);
+    padding: 200px;
+    padding-top: 0px;
+}
+
+#icon-container {
+    display: flex;
+    flex-direction: row;
+    gap: 55px;
+    border: 3px solid rgb(255, 0, 13);
+    margin-bottom: 60px;
+}
+
+/* Määritetään painikkeiden tyyli */
+button.edit,
+button.delete {
+    width: 120px; /* Leveys */
+    height: 120px; /* Korkeus */
+    border: none; /* Ei reunuksia */
+    background-color: #FFA048; /* Vaalean oranssi taustaväri */
+    border-radius: 50%; /* Pyöristetyt kulmat, joka tekee ympyrän */
+    display: flex; /* Jotta sisältö (kuvake) voidaan keskittää */
+    justify-content: center; /* Kuvake keskitetään vaakasuunnassa */
+    align-items: center; /* Kuvake keskitetään pystysuunnassa */
+    padding: 0; /* Poistetaan ylimääräinen täyttö */
+}
+
+/* Määritetään kuvakkeen tyyli */
+button.edit .icon,
+button.delete .icon {
+    width: 50%; /* Kuvakkeen leveys suhteessa painikkeeseen */
+    height: 50%; /* Kuvakkeen korkeus suhteessa painikkeeseen */
+    filter: invert(0%); /* Kuvakkeen väri muutetaan mustaksi */
+}
+
+hr {
+    border: none; /* Poistaa oletusreunan */
+    height: 2px; /* Asettaa viivan korkeuden */
+    background-color: #00000027; /* Asettaa taustavärin (käytetään tässä viivan värinä) */
+}
+
+/* EDIT/ADD NEW */
+
+#main-container {
+    height: 100%;
+    border: 6px solid rgb(255, 0, 13);
+    padding-top: 200px;
+    padding-bottom: 200px;
+    background-image: url("/photos/cover.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#data-modification-container {
+    border: 6px solid rgb(43, 255, 0);
+    width: 70%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 55px;
+    justify-content: center;
+    align-items: center;
+    padding: 200px;
+}
+
+#edit-title {
+    color: white;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    width: 100%;
+    margin-bottom: 35px;
+    font-size: 4rem;
+}
+
+input {
+    background-color: black;
+    color: white;
+    border: none;
+}
+
+textarea {
+    background-color: black;
+    color: white;
+    border: none;
+}
+
+
+/* Placeholderit */
+input::placeholder,
+textarea::placeholder {
+    font-size: 3rem;
+    font-weight: 400;
+    color: white;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+textarea {
+    padding-left: 45px;
+    padding-top: 60px;
+    padding-bottom: 35px;
+    box-sizing: border-box; /* Jotta padding ei vaikuta elementin kokoon */
+    width: 100%;
+    border-radius: 25px;
+}
+
+/* Kun kenttä on aktiivinen tai kun siinä on tekstiä, suurenna fonttikokoa */
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+textarea:focus,
+input[type="text"]:not(:placeholder-shown),
+input[type="number"]:not(:placeholder-shown),
+input[type="date"]:not(:placeholder-shown),
+textarea:not(:placeholder-shown) {
+  font-size: 3rem; /* Suurennettu fonttikoko */
+  transition: font-size 0.3s ease; /* Sujuva siirtymä fonttikoon muutokselle */
+}
+
+#button-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding-right: 50%;
+}
+
+/* Ensimmäisen painikkeen tyylit */
+button.full-width:first-of-type {
+    background-color: orange; /* Taustaväri */
+    color: black; /* Tekstin väri */
+    border-radius: 100px; /* Pyöristetyt kulmat */
+    border: none; /* Ei reunusta */
+    padding: 15px 20px; /* Sisennys painikkeelle */
+    cursor: pointer; /* Osoitin vaihtuu kursoriksi */
+    font-size: 3rem;
+}
+  
+/* Viimeisen painikkeen tyylit */
+button.full-width:last-of-type {
+    background-color: transparent; /* Ei taustaväriä */
+    color: white; /* Tekstin väri */
+    border: 2px solid orange; /* Oranssi reunus */
+    border-radius: 100px; /* Pyöristetyt kulmat */
+    padding: 15px 20px; /* Sisennys painikkeelle */
+    cursor: pointer; /* Osoitin vaihtuu kursoriksi */
+    font-size: 3rem;
+}
+
+button.full-width {
+    flex: 1; /* Jakaa tilan tasaisesti */
+    min-width: 45%; /* Painikkeiden minimileveys */
+}
+
+
+/* HEADER */
+
+#header-container {
+    border: 6px solid rgb(255, 0, 13);
+    padding: 45px 200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#header-title {
+    font-size: 5rem;
+}
+
+#header-link {
+    font-size: 3rem;
+    text-decoration: none;
+    color: black;
+}
+
+/* FOOTER */
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-text {
+    font-size: 3rem;
 }
