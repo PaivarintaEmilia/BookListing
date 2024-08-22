@@ -1,0 +1,15 @@
+# Ignore environment variable file
+.env
+
+# Node.js dependencies
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Other system files
+.DS_Store
