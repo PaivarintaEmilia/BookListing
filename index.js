@@ -89,6 +89,30 @@ app.post("/newBook", async (req, res) => {
 });
 
 
+// EDIT EXISTING DATA IN BOOK ITEM
+
+// Kun käyttäjä on painanut edit-iconia
+app.post("/edit/:id", async (req, res) => {
+  // Renderöidään edit screeniin ja siirretään samalla eteenpäin tiedot
+
+  // 1. tarvitaan id UI:n puolelta 
+  const id = req.params.id;
+
+  console.log(id); // Tulostaa 1
+
+  // Tulee siis hakea dataa halutulla id:llä databasesta
+  const result = await db.query("SELECT * FROM books WHERE id = $1", [id]);
+
+  console.log(result.rows); // Yhden kirjan tiedot
+
+  res.render("addEditBook.ejs", {
+    heading: "Edit the book",
+    submit: "Save edits",
+    books: result.rows
+  });
+
+});
+
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

@@ -40,8 +40,10 @@
     </div>
     <div id="edit-book-data-container">
         <div id="icon-container">
-            <button class="edit" type="submit"><img class="icon"
-                src="/icons/edit-icon.svg" alt="edit icon"></button>
+            <form action="/edit/<%= book.id %>" method="post">
+                <button class="edit" type="submit"><img class="icon"
+                    src="/icons/edit-icon.svg" alt="edit icon"></button>
+            </form>
             <button class="delete" type="submit"><img class="icon"
                 src="/icons/delete-icon.svg" alt="delete icon"></button>
         </div>

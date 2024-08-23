@@ -71,6 +71,7 @@ h1 {
     background-color: #FFA048;
     color: black;
     border-radius: 100px;
+    cursor: pointer;
 }
 
 #quote-container {
@@ -192,6 +193,7 @@ button.delete {
     justify-content: center; /* Kuvake keskitetään vaakasuunnassa */
     align-items: center; /* Kuvake keskitetään pystysuunnassa */
     padding: 0; /* Poistetaan ylimääräinen täyttö */
+    cursor: pointer;
 }
 
 /* Määritetään kuvakkeen tyyli */
