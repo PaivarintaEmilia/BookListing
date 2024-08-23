@@ -11,6 +11,7 @@
             <p>Add a new book to the collection:</p>
             <button type="submit">New book</button>
             <a href="/new">New book</a>
+            <a href="/test">PRESS ME FOR TESTING</a>
         </div>
         <div id="quote-container">
             <p id="quote">“A reader lives a thousand lives before he dies . . . The man who never reads lives only one.”</p>
@@ -23,28 +24,30 @@
 <h2>My books</h2>
 
 <!-- List item iteration -->
- <div id="book-item-container">
-    <div id="book-item-data-container">
-        <h3>Harry Potter</h3>
-        <div id="book-data-container">
-           <p>Rating</p>
-           <p>25.1.2025</p>
+ <% for (let book of bookList) { %>
+    <div id="book-item-container">
+        <div id="book-item-data-container">
+            <h3>Title: <%= book.title %></h3>
+            <div id="book-data-container">
+            <p>Rating: <%= book.rating %></p>
+            <p>25.1.2025: <%= book.data %></p>
+            </div>
+            <p><%= book.content %></p>
         </div>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In quam justo, finibus eget ultricies nec, aliquam ac tellus. Etiam vel diam non est faucibus faucibus. Aenean elementum rhoncus gravida. Suspendisse at porttitor odio. Donec non purus ultrices, interdum elit sit amet, commodo quam. Ut ornare leo a quam dignissim tincidunt. Morbi pretium tincidunt porttitor. Nunc id arcu at elit vulputate cursus placerat non sapien. Duis in dolor laoreet, dapibus velit viverra, condimentum dui. Donec sed risus non tortor consequat blandit sed tristique purus. Suspendisse felis sem, condimentum in massa dignissim, rutrum imperdiet neque. Suspendisse interdum dignissim diam vel sollicitudin.</p>
+        <div id="book-img-container">
+            <img src="/photos/cover.jpg" alt="Book-cover">
+        </div>
     </div>
-    <div id="book-img-container">
-        <img src="/photos/cover.jpg" alt="Book-cover">
+    <div id="edit-book-data-container">
+        <div id="icon-container">
+            <button class="edit" type="submit"><img class="icon"
+                src="/icons/edit-icon.svg" alt="edit icon"></button>
+            <button class="delete" type="submit"><img class="icon"
+                src="/icons/delete-icon.svg" alt="delete icon"></button>
+        </div>
+        <hr>
     </div>
- </div>
- <div id="edit-book-data-container">
-    <div id="icon-container">
-        <button class="edit" type="submit"><img class="icon"
-            src="/icons/edit-icon.svg" alt="edit icon"></button>
-        <button class="delete" type="submit"><img class="icon"
-            src="/icons/delete-icon.svg" alt="delete icon"></button>
-    </div>
-    <hr>
- </div>
+<% }; %>
 
 
 <!--FOOTER-->

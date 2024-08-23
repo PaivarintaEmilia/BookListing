@@ -169,8 +169,7 @@ img {
 
 #edit-book-data-container {
     border: 3px solid rgb(0, 255, 64);
-    padding: 200px;
-    padding-top: 0px;
+    padding: 0px 200px;
 }
 
 #icon-container {

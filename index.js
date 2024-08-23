@@ -22,9 +22,38 @@ const db = new pg.Client({
 
 db.connect();
 
+// Funktio datan hakemiseen databasesta
+async function getBookData() {
+  // Haetaan databasesta data
+  const result = await db.query("SELECT * FROM books ORDER BY id ASC;");
+  // Valitaan vain tarvittava tieto
+  const data = result.rows;
+  // Lähetetään data eteenpäin
+  return data;
+}
+
+//app.get("/test", async (req, res) => {
+//  const test = await getBookData();
+//  console.log(test);
+//  res.redirect("/");
+//})
+
 // Reitti, joka näyttää index.ejs-tiedoston
-app.get("/", (req, res) => {
-  res.render("index.ejs");
+app.get("/", async (req, res) => {
+
+  try {
+    // Haetaan funktion takaa data
+    const bookData = await getBookData();
+    // Renderöidään alkunäyttö ja viedään sinne tarvittava data
+    res.render("index.ejs", {
+    bookList: bookData
+  });
+
+  } catch (error) {
+    console.error("Error fetching items: ", error);
+    res.status(500).send("Internal server error");
+  }
+
 });
 
 
@@ -57,7 +86,7 @@ app.post("/newBook", async (req, res) => {
   // 3. Siirrytään takaisin etusivulle
   res.redirect("/");
 
-})
+});
 
 
 
