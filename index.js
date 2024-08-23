@@ -20,15 +20,46 @@ const db = new pg.Client({
   port: process.env.DB_PORT,
 });
 
-//db.connect();
-
-// Loput koodista pysyy ennallaan...
-
+db.connect();
 
 // Reitti, joka näyttää index.ejs-tiedoston
 app.get("/", (req, res) => {
-  res.render("addEditBook.ejs");
+  res.render("index.ejs");
 });
+
+
+// ADD NEW BOOK
+
+// Routes to render the edit page
+app.get("/new", (req, res) => {
+  res.render("addEditBook.ejs", { heading: "New book", submit: "Add a new book" });
+});
+
+
+// Uuden kirjan lisäyksen submitin jälkeiset toimet
+app.post("/newBook", async (req, res) => {
+
+  // Mitä tapahtuu, kun halutaan lisätä uusi kirja?
+
+  // 1. Haetaan tiedot newBookFormista
+  const newTitle = req.body.title;
+  const newRating = req.body.rating;
+  const newDate = req.body.date;
+  const newContent = req.body.content;
+
+
+  // 2. Lisätään tiedot tietokantaan
+  const result = await db.query("INSERT INTO books (title, rating, data, content) VALUES ($1, $2, $3, $4) RETURNING *", 
+    [newTitle, newRating, newDate, newContent]
+  );
+
+  console.log(result.rows);
+  // 3. Siirrytään takaisin etusivulle
+  res.redirect("/");
+
+})
+
+
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
