@@ -98,12 +98,13 @@ app.post("/edit/:id", async (req, res) => {
   // 1. tarvitaan id UI:n puolelta 
   const id = req.params.id;
 
-  console.log(id); // Tulostaa 1
+  //console.log(id); // Tulostaa 1
 
   // Tulee siis hakea dataa halutulla id:llä databasesta
   const result = await db.query("SELECT * FROM books WHERE id = $1", [id]);
 
   console.log(result.rows); // Yhden kirjan tiedot
+  console.log(result.rows.data); // undefined
 
   res.render("addEditBook.ejs", {
     heading: "Edit the book",
@@ -114,7 +115,28 @@ app.post("/edit/:id", async (req, res) => {
 });
 
 
+// Kun käyttäjä on täyttänyt muokattavat tiedot ja submittanut editForm lomakkeen
+app.post("/bookEdit/:id", async (req, res) => {
 
+  const id = req.params.id;
+
+  console.log(req.body.data) // undefined
+
+  // Haetaan tarvittava data
+  const editTitle = req.body.title;
+  const editRating = req.body.rating;
+  const editDate = req.body.data;
+  const editContent = req.body.content;
+
+  // Muokataan tiedot databaseen
+  await db.query("UPDATE books set title = $1, rating = $2, data = $3, content = $4 WHERE id = $5",
+    [editTitle, editRating, editDate, editContent, id]
+  );
+
+  // 3. Siirrytään takaisin etusivulle
+  res.redirect("/");
+
+})
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
