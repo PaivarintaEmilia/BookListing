@@ -35,7 +35,8 @@
             <p><%= book.content %></p>
         </div>
         <div id="book-img-container">
-            <img src="/photos/cover.jpg" alt="Book-cover">
+            <!--Lisätään source uuden kuvan mukana joka tulee listalta-->
+            <img src="<%= book.coverUrl %>" alt="Book-cover">
         </div>
     </div>
     <div id="edit-book-data-container">
