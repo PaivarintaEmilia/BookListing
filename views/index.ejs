@@ -40,17 +40,32 @@
     </div>
     <div id="edit-book-data-container">
         <div id="icon-container">
+            <!--Edit book item-->
             <form action="/edit/<%= book.id %>" method="post">
-                <button class="edit" type="submit"><img class="icon"
-                    src="/icons/edit-icon.svg" alt="edit icon"></button>
+                <button class="edit" type="submit">
+                    <img class="icon" src="/icons/edit-icon.svg" alt="edit icon">
+                </button>
             </form>
-            <button class="delete" type="submit"><img class="icon"
-                src="/icons/delete-icon.svg" alt="delete icon"></button>
+            <!--Delete book item-->
+  
+            <button class="delete-btn delete" data-id="<%= book.id %>">
+                <img class="icon" src="/icons/delete-icon.svg" alt="delete icon">
+            </button>
+
+
         </div>
         <hr>
     </div>
 <% }; %>
 
+
+
+
+
+
+
+<!--Viittaus delete.js tiedostoon pop uppia varten-->
+<script src="/js/delete.js"></script>
 
 <!--FOOTER-->
 <%- include("partials/footer.ejs") %>

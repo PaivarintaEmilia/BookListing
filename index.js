@@ -138,6 +138,28 @@ app.post("/bookEdit/:id", async (req, res) => {
 
 })
 
+
+// KIRJAN POISTAMINEN LISTALTA
+// DELETE reitti, joka poistaa kirjan ID:n perusteella
+app.delete('/delete/:id', async (req, res) => {
+  const id = req.params.id;
+  
+  try {
+    const result = await db.query("DELETE FROM books WHERE id = $1", [id]);
+    
+    if (result.rowCount > 0) {
+      res.status(200).send('Poisto onnistui');
+    } else {
+      res.status(404).send('Itemiä ei löytynyt');
+    }
+  } catch (error) {
+    console.error('Error deleting item:', error);
+    res.status(500).send('Virhe poistettaessa itemiä');
+  }
+});
+
+
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
