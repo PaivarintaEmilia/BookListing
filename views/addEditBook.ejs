@@ -16,9 +16,7 @@
                 <!-- rating -->
                 <input type="number" id="quantity" name="rating" value="<%= books[0].rating %>" min="1" max="5" placeholder="Rating">
                 <!-- date-->
-                <input type="date" id="start" name="date" value="<%= books[0].data %>" min="2018-01-01" max="2018-12-31" placeholder="Finished reading"/>
-                <% console.log(books[0].data); // oikeassa muodossa
-                 %>
+                <input type="date" id="start" name="date" value="<%= books[0].data %>" min="2018-01-01" max="2030-12-31" placeholder="Finished reading"/>
                 <!-- note -->
                 <textarea name="content" placeholder="Content" rows="5"><%= books[0].content %></textarea>
                 <!-- ISBN -->

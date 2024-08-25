@@ -3,6 +3,8 @@ import bodyParser from "body-parser";
 import pg from "pg";
 import dotenv from "dotenv";
 import axios from "axios";
+import { format } from 'date-fns';
+
 
 dotenv.config(); // Lataa ympäristömuuttujat .env-tiedostosta
 
@@ -35,40 +37,62 @@ async function getBookData() {
   return data;
 }
 
-app.get("/test", async (req, res) => {
-  const test = await getApiData();
-  //console.log(test);
-  res.redirect("/");
-});
-
 
 // Kokeillaan datan hakua APIa varten
 async function getApiData() {
   // Hae coverphoton data databasesta
-  const result = await db.query("SELECT cover FROM books ORDER BY id ASC;");
+  const result = await db.query("SELECT * FROM books ORDER BY id ASC;");
   const data = result.rows;
 
-  const coverUrls = [];
+  //console.log("API FUNKTION DATA MUUTTUJA");
+  //console.log(data);
+
 
   const apiPromises = data.map(async (row) => {
     //console.log(row.cover);
+    //console.log("API FUNKTION DATA.MAP ROW");
+    //console.log(row);
+
     // Build the apiUrl
     const apiUrl = `${API_URL}${row.cover}-M.jpg`;
 
     // Api query
     const apiResponse = await axios.get(apiUrl);
 
-    // Add URL's to coverUrls array
-    coverUrls.push(apiResponse.config.url);
-  })
+    return apiResponse.config.url;
+
+  
+  });
+
 
   // Promise all helps to make the requests faster
   await Promise.all(apiPromises);
 
-  // Testaus - tulostetaan kaikki saadut URL:t
+  // Odotetaan, että kaikki lupaukset täyttyvät, ja saadaan array cover URL:eista
+  const coverUrls = await Promise.all(apiPromises);
+
+  //console.log("API FUNKTION COVERURLS ARRAY ");
   //console.log(coverUrls);
 
-  return coverUrls;
+  // Käännä coverUrls-taulukko vastakkaiseen järjestykseen
+  //coverUrls.reverse();
+
+
+  //console.log("API FUNKTION COVERURLS ARRAY REVERSEN JÄLKEEN ");
+  //console.log(coverUrls);
+
+  // Yhdistetään molempien taulukoiden vastaavat elementit
+  const combinedData = data.map((book, index) => {
+    return {
+      ...book,          // Lisää kaikki book-objektin kentät
+      coverUrl: coverUrls[index] // Lisää coverData-taulukon vastaava URL
+    };
+  });
+
+  console.log("apidata funktiosta lähtevä tieto:  ");
+  console.log(combinedData);
+
+  return combinedData;
 
 
 };
@@ -78,26 +102,41 @@ app.get("/", async (req, res) => {
 
   try {
     // Haetaan funktion takaa data
-    const bookData = await getBookData();
+    //const bookData = await getBookData();
+    //console.log("Perus bookdata");
     //console.log(bookData);
+
+
+    //console.log("Päivämäärän muokkaus");
+    //console.log(formattedBookData);
     // Haetaan apiData
     const coverData = await getApiData();
+    //console.log("Api funktion data");
     //console.log(coverData);
+
+    // Muotoillaan päivämäärä jokaiselle kirjalle
+    const formattedBookData = coverData.map(book => {
+      return {
+        ...book,
+        data: format(new Date(book.data), 'yyyy-MM-dd')
+      };
+    });
 
 
     // Yhdistetään molempien taulukoiden vastaavat elementit
-    const combinedData = bookData.map((book, index) => {
+    /*const combinedData = formattedBookData.map((book, index) => {
       return {
         ...book,          // Lisää kaikki book-objektin kentät
         coverUrl: coverData[index] // Lisää coverData-taulukon vastaava URL
       };
-    });
-
+    });*/
+    //console.log("Yhdistetyt arrayt");
     //console.log(combinedData);
+
 
     // Renderöidään alkunäyttö ja viedään sinne tarvittava data
     res.render("index.ejs", {
-    bookList: combinedData
+    bookList: formattedBookData
   });
 
   } catch (error) {
@@ -134,7 +173,7 @@ app.post("/newBook", async (req, res) => {
     [newTitle, newRating, newDate, newContent, newCover]
   );
 
-  console.log(result.rows);
+  //console.log(result.rows);
   // 3. Siirrytään takaisin etusivulle
   res.redirect("/");
 
@@ -155,8 +194,8 @@ app.post("/edit/:id", async (req, res) => {
   // Tulee siis hakea dataa halutulla id:llä databasesta
   const result = await db.query("SELECT * FROM books WHERE id = $1", [id]);
 
-  console.log(result.rows); // Yhden kirjan tiedot
-  console.log(result.rows.data); // undefined
+  //console.log(result.rows); // Yhden kirjan tiedot
+  //console.log(result.rows.data); // undefined
 
   res.render("addEditBook.ejs", {
     heading: "Edit the book",
@@ -172,12 +211,12 @@ app.post("/bookEdit/:id", async (req, res) => {
 
   const id = req.params.id;
 
-  console.log(req.body.data) // undefined
+  //console.log(req.body.date) // undefined
 
   // Haetaan tarvittava data
   const editTitle = req.body.title;
   const editRating = req.body.rating;
-  const editDate = req.body.data;
+  const editDate = req.body.date;
   const editContent = req.body.content;
   const editCover = req.body.cover;
 
@@ -185,6 +224,7 @@ app.post("/bookEdit/:id", async (req, res) => {
   await db.query("UPDATE books set title = $1, rating = $2, data = $3, content = $4, cover = $5 WHERE id = $6",
     [editTitle, editRating, editDate, editContent, editCover, id]
   );
+
 
   // 3. Siirrytään takaisin etusivulle
   res.redirect("/");
