@@ -67,6 +67,9 @@ h1 {
     padding: 15px 25px;
     border-radius: 100px;
     text-align: center; /* Center text horizontally */ 
+    display: flex; /* Muuta elementti flexboxiksi */
+    justify-content: center; /* Keskittää tekstin horisontaalisesti */
+    align-items: center; /* Keskittää tekstin vertikaalisesti */
 }
 
 #add-new-book-container > p {
@@ -260,7 +263,6 @@ hr {
     }
 
     #book-item-container {
-        border: 3px solid rgb(112, 3, 255);
         padding: 35px;
         display: grid;
         grid-template-columns: 1fr;
@@ -268,7 +270,6 @@ hr {
     }
 
     #book-item-data-container {
-        border: 1px solid olivedrab;
         padding-right: 0px;
         display: flex;
         flex-direction: column;
@@ -276,7 +277,6 @@ hr {
 
 
     #book-data-container {
-        border: 1px solid rgb(2, 225, 255);
         display: flex;
         flex-direction: column;
         gap: 5px;
@@ -285,7 +285,6 @@ hr {
 
 
     #book-img-container {
-        border: 1px solid rgb(255, 0, 191);
         padding: 0px;
         overflow: hidden; /* Piilota kuvan osat, jotka ylittävät containerin */
         margin-top: 25px;
@@ -293,12 +292,10 @@ hr {
     }
 
     #edit-book-data-container {
-        border: 1px solid rgb(255, 238, 0);
         padding: 35px;
     }
 
     #icon-container {
-        border: 1px solid rgb(255, 115, 0);
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -368,7 +365,6 @@ hr {
     }
 
     #book-item-container {
-        border: 3px solid rgb(112, 3, 255);
         padding: 35px;
         display: grid;
         grid-template-columns: 1fr;
@@ -376,7 +372,6 @@ hr {
     }
 
     #book-item-data-container {
-        border: 1px solid olivedrab;
         padding-right: 0px;
         display: flex;
         flex-direction: column;
@@ -384,7 +379,6 @@ hr {
 
 
     #book-data-container {
-        border: 1px solid rgb(2, 225, 255);
         display: flex;
         flex-direction: column;
         gap: 5px;
@@ -393,7 +387,6 @@ hr {
 
 
     #book-img-container {
-        border: 1px solid rgb(255, 0, 191);
         padding: 0px;
         overflow: hidden; /* Piilota kuvan osat, jotka ylittävät containerin */
         margin-top: 25px;
@@ -402,12 +395,10 @@ hr {
 
 
     #edit-book-data-container {
-        border: 1px solid rgb(255, 238, 0);
         padding: 35px;
     }
 
     #icon-container {
-        border: 1px solid rgb(255, 115, 0);
         display: flex;
         flex-direction: row;
         justify-content: start;
