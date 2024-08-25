@@ -1,0 +1,34 @@
+/* HEADER */
+
+#header-container {
+    padding: 25px 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#header-title {
+    font-size: 1.5rem;
+}
+
+#header-link {
+    font-size: 1rem;
+    text-decoration: none;
+    color: black;
+}
+
+/* FOOTER */
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 25px;
+}
+
+.footer-text {
+    font-size: 1rem;
+}
+
+

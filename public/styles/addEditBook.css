@@ -1,0 +1,114 @@
+/* EDIT/ADD NEW */
+
+#main-container {
+    height: 100%;
+    padding: 50px 100px;
+    background-image: url("/photos/cover.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#data-modification-container {
+    width: 70%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    padding: 100px;
+}
+
+#edit-title {
+    color: white;
+}
+
+form.addEditBook {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    margin-bottom: 35px;
+    font-size: 1.5rem;
+}
+
+input {
+    background-color: black;
+    color: white;
+    border: none;
+}
+
+textarea {
+    background-color: black;
+    color: white;
+    border: none;
+}
+
+
+/* Placeholderit */
+input::placeholder,
+textarea::placeholder {
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: white;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+textarea {
+    padding-left: 20px;
+    padding-top: 17px;
+    padding-bottom: 10px;
+    box-sizing: border-box; /* Jotta padding ei vaikuta elementin kokoon */
+    width: 100%;
+    border-radius: 5px;
+}
+
+/* Kun kenttä on aktiivinen tai kun siinä on tekstiä, suurenna fonttikokoa */
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+textarea:focus,
+input[type="text"]:not(:placeholder-shown),
+input[type="number"]:not(:placeholder-shown),
+input[type="date"]:not(:placeholder-shown),
+textarea:not(:placeholder-shown) {
+  font-size: 1rem; /* Suurennettu fonttikoko */
+  transition: font-size 0.3s ease; /* Sujuva siirtymä fonttikoon muutokselle */
+}
+
+#button-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding-right: 50%;
+    margin-top: 20px;
+}
+
+/* Ensimmäisen painikkeen tyylit */
+button.full-width:first-of-type {
+    background-color: orange; /* Taustaväri */
+    color: black; /* Tekstin väri */
+    border-radius: 100px; /* Pyöristetyt kulmat */
+    border: none; /* Ei reunusta */
+    padding: 12px 25px; /* Sisennys painikkeelle */
+    cursor: pointer; /* Osoitin vaihtuu kursoriksi */
+    font-size: 1.2rem;
+}
+  
+/* Viimeisen painikkeen tyylit */
+button.full-width:last-of-type {
+    background-color: transparent; /* Ei taustaväriä */
+    color: white; /* Tekstin väri */
+    border: 2px solid orange; /* Oranssi reunus */
+    border-radius: 100px; /* Pyöristetyt kulmat */
+    padding: 12px 20px; /* Sisennys painikkeelle */
+    cursor: pointer; /* Osoitin vaihtuu kursoriksi */
+    font-size: 1.2rem;
+}
+
+button.full-width {
+    flex: 1; /* Jakaa tilan tasaisesti */
+    min-width: 45%; /* Painikkeiden minimileveys */
+}

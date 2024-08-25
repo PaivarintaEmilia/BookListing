@@ -9,9 +9,8 @@
         </div>
         <div id="add-new-book-container" class="blur-background">
             <p>Add a new book to the collection:</p>
-            <button type="submit">New book</button>
-            <a href="/new">New book</a>
-            <a href="/test">PRESS ME FOR TESTING</a>
+            <a href="/new" id="add-new-btn">New book</a>
+            <!--<a href="/test">PRESS ME FOR TESTING</a>-->
         </div>
         <div id="quote-container">
             <p id="quote">“A reader lives a thousand lives before he dies . . . The man who never reads lives only one.”</p>
@@ -27,16 +26,17 @@
  <% for (let book of bookList) { %>
     <div id="book-item-container">
         <div id="book-item-data-container">
-            <h3>Title: <%= book.title %></h3>
+            <h3><%= book.title %></h3>
             <div id="book-data-container">
             <p>Rating: <%= book.rating %></p>
-            <p>25.1.2025: <%= book.data %></p>
+            <p><%= book.data %></p>
             </div>
             <p><%= book.content %></p>
         </div>
         <div id="book-img-container">
             <!--Lisätään source uuden kuvan mukana joka tulee listalta-->
-            <img src="<%= book.coverUrl %>" alt="Book-cover">
+            <!--<img src="<%=// book.coverUrl %>" alt="Book-cover">-->
+            <img src="#" alt="Book-cover" class="cover-delete-later">
         </div>
     </div>
     <div id="edit-book-data-container">
@@ -52,8 +52,6 @@
             <button class="delete-btn delete" data-id="<%= book.id %>">
                 <img class="icon" src="/icons/delete-icon.svg" alt="delete icon">
             </button>
-
-
         </div>
         <hr>
     </div>

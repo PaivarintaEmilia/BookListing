@@ -10,9 +10,9 @@
 
         <% if (locals.books) { %>
             <!-- Form for editing a book data -->
-            <form id="editForm" method="post" action="/bookEdit/<%= books[0].id %>">
+            <form id="editForm" method="post" action="/bookEdit/<%= books[0].id %>" class="addEditBook">
                 <!--title-->
-                <input type="text" name="title" value="<%= books[0].title %>" placeholder="Title" required>
+                <input type="text" name="title" value="<%= books[0].title %>" placeholder="Title">
                 <!-- rating -->
                 <input type="number" id="quantity" name="rating" value="<%= books[0].rating %>" min="1" max="5" placeholder="Rating">
                 <!-- date-->
@@ -20,18 +20,18 @@
                 <% console.log(books[0].data); // oikeassa muodossa
                  %>
                 <!-- note -->
-                <textarea name="content" placeholder="Content" required rows="5"><%= books[0].content %></textarea>
+                <textarea name="content" placeholder="Content" rows="5"><%= books[0].content %></textarea>
                 <!-- ISBN -->
                 <input type="text" name="cover" value="<%= books[0].cover %>" placeholder="ISBN for bookcover">
                 <!-- buttons -->
                 <div id="button-container">
                     <button class="full-width" type="submit"><%= submit %></button>
-                    <button class="full-width" type="submit">Return home</button>
+                    <button class="full-width" type="button" onclick="window.location.href='/'">Return home</button>
                 </div>
             </form>
         <% } else { %>
             <!-- Form for adding new book -->
-            <form id="newBookForm" method="post" action="/newBook">
+            <form id="newBookForm" method="post" action="/newBook" class="addEditBook">
                 <!--title-->
                 <input type="text" name="title" placeholder="Title" required>
                 <!-- rating -->
@@ -39,13 +39,13 @@
                 <!-- date-->
                 <input type="date" id="start" name="date" value="2024-07-22" min="2018-01-01" max="2024-12-31" placeholder="Finished reading"/>
                 <!-- note -->
-                <textarea name="content" placeholder="Content" required rows="10"></textarea>
+                <textarea name="content" placeholder="Content" required rows="5"></textarea>
                 <!-- ISBN -->
                 <input type="text" name="cover" placeholder="ISBN for bookcover">
                 <!-- buttons -->
                 <div id="button-container">
                     <button class="full-width" type="submit"><%= submit %></button>
-                    <button class="full-width" type="menu">Return home</button>
+                    <button class="full-width" type="button" onclick="window.location.href='/'">Return home</button>
                 </div>
             </form>
         <% }; %>
