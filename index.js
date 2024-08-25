@@ -81,11 +81,11 @@ app.get("/", async (req, res) => {
     const bookData = await getBookData();
     //console.log(bookData);
     // Haetaan apiData
-    //const coverData = await getApiData();
+    const coverData = await getApiData();
     //console.log(coverData);
 
 
-    /*// Yhdistetään molempien taulukoiden vastaavat elementit
+    // Yhdistetään molempien taulukoiden vastaavat elementit
     const combinedData = bookData.map((book, index) => {
       return {
         ...book,          // Lisää kaikki book-objektin kentät
@@ -93,11 +93,11 @@ app.get("/", async (req, res) => {
       };
     });
 
-    console.log(combinedData);*/
+    //console.log(combinedData);
 
     // Renderöidään alkunäyttö ja viedään sinne tarvittava data
     res.render("index.ejs", {
-    bookList: bookData
+    bookList: combinedData
   });
 
   } catch (error) {
