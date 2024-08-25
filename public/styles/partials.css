@@ -18,6 +18,11 @@
     color: black;
 }
 
+#header-link:hover {
+    color: rgb(112, 112, 112);
+    transition: color 0.3s ease;
+}
+
 /* FOOTER */
 
 footer {
@@ -32,3 +37,23 @@ footer {
 }
 
 
+
+/* Optimization */
+
+/* Styling for phones */
+@media (max-width: 480px) {
+    #header-container {
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+    }
+
+}
+
+
+/* Styling for tablets */
+@media (min-width: 481px) and (max-width: 850px) {
+    #header-container {
+        padding: 25px 50px;
+    }
+}

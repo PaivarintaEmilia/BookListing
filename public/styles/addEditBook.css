@@ -21,6 +21,7 @@
 
 #edit-title {
     color: white;
+    font-size: 2.3rem;
 }
 
 form.addEditBook {
@@ -88,27 +89,87 @@ textarea:not(:placeholder-shown) {
 
 /* Ensimmäisen painikkeen tyylit */
 button.full-width:first-of-type {
-    background-color: orange; /* Taustaväri */
+    background-color: #FFA048; /* Taustaväri */
     color: black; /* Tekstin väri */
     border-radius: 100px; /* Pyöristetyt kulmat */
     border: none; /* Ei reunusta */
     padding: 12px 25px; /* Sisennys painikkeelle */
     cursor: pointer; /* Osoitin vaihtuu kursoriksi */
     font-size: 1.2rem;
+    font-weight: 300;
+}
+
+button.full-width:first-of-type:hover {
+    background-color: #ffa048d7;
+    transition: background-color 0.5s ease-out;
 }
   
 /* Viimeisen painikkeen tyylit */
 button.full-width:last-of-type {
     background-color: transparent; /* Ei taustaväriä */
     color: white; /* Tekstin väri */
-    border: 2px solid orange; /* Oranssi reunus */
+    border: 2px solid #FFA048; /* Oranssi reunus */
     border-radius: 100px; /* Pyöristetyt kulmat */
     padding: 12px 20px; /* Sisennys painikkeelle */
     cursor: pointer; /* Osoitin vaihtuu kursoriksi */
     font-size: 1.2rem;
+    font-weight: 300;
+}
+
+button.full-width:last-of-type:hover {
+    background-color: #ffa04838;
+    transition: background-color 0.5s ease-in-out;
 }
 
 button.full-width {
     flex: 1; /* Jakaa tilan tasaisesti */
     min-width: 45%; /* Painikkeiden minimileveys */
+}
+
+
+
+/* Optimization */
+
+/* Styling for phones */
+@media (max-width: 480px) {
+    #main-container {
+        padding: 25px;
+    }
+    
+    #data-modification-container {
+        width: 90%;
+        gap: 15px;
+        padding: 25px 15px;
+    }
+
+    #button-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 20px;
+        padding-right: 0px;
+    }
+
+}
+
+
+/* Styling for tablets */
+@media (min-width: 481px) and (max-width: 850px) {
+    #main-container {
+        padding: 45px 25px;
+    }
+
+    #data-modification-container {
+        width: 90%;
+        gap: 15px;
+        padding: 50px 25px;
+    }
+
+    #button-container {
+        display: flex;
+        flex-direction: row;
+        gap: 15px;
+        margin-top: 20px;
+        padding-right: 0px;
+    }
 }
