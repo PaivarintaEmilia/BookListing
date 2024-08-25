@@ -11,7 +11,6 @@ dotenv.config(); // Lataa ympäristömuuttujat .env-tiedostosta
 const app = express();
 const port = 3000;
 const API_URL = "https://covers.openlibrary.org/b/isbn/"; 
-// Muista -S.jpg loppu apin urlissa
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -27,31 +26,16 @@ const db = new pg.Client({
 
 db.connect();
 
-// Funktio datan hakemiseen databasesta
+
+// Function for getting book items data
 async function getBookData() {
-  // Haetaan databasesta data
-  const result = await db.query("SELECT * FROM books ORDER BY id ASC;");
-  // Valitaan vain tarvittava tieto
-  const data = result.rows;
-  // Lähetetään data eteenpäin
-  return data;
-}
 
-
-// Kokeillaan datan hakua APIa varten
-async function getApiData() {
-  // Hae coverphoton data databasesta
+  // Get book data
   const result = await db.query("SELECT * FROM books ORDER BY id ASC;");
   const data = result.rows;
-
-  //console.log("API FUNKTION DATA MUUTTUJA");
-  //console.log(data);
 
 
   const apiPromises = data.map(async (row) => {
-    //console.log(row.cover);
-    //console.log("API FUNKTION DATA.MAP ROW");
-    //console.log(row);
 
     // Build the apiUrl
     const apiUrl = `${API_URL}${row.cover}-M.jpg`;
@@ -65,23 +49,11 @@ async function getApiData() {
   });
 
 
-  // Promise all helps to make the requests faster
-  await Promise.all(apiPromises);
-
-  // Odotetaan, että kaikki lupaukset täyttyvät, ja saadaan array cover URL:eista
+  // Wait for API requests and add data to array coverUrls
   const coverUrls = await Promise.all(apiPromises);
 
-  //console.log("API FUNKTION COVERURLS ARRAY ");
-  //console.log(coverUrls);
 
-  // Käännä coverUrls-taulukko vastakkaiseen järjestykseen
-  //coverUrls.reverse();
-
-
-  //console.log("API FUNKTION COVERURLS ARRAY REVERSEN JÄLKEEN ");
-  //console.log(coverUrls);
-
-  // Yhdistetään molempien taulukoiden vastaavat elementit
+  // Combine data and coverUrls
   const combinedData = data.map((book, index) => {
     return {
       ...book,          // Lisää kaikki book-objektin kentät
@@ -89,33 +61,19 @@ async function getApiData() {
     };
   });
 
-  console.log("apidata funktiosta lähtevä tieto:  ");
-  console.log(combinedData);
-
   return combinedData;
-
 
 };
 
-// Reitti, joka näyttää index.ejs-tiedoston
+// Home screen route
 app.get("/", async (req, res) => {
 
   try {
-    // Haetaan funktion takaa data
-    //const bookData = await getBookData();
-    //console.log("Perus bookdata");
-    //console.log(bookData);
 
+    const bookData = await getBookData();
 
-    //console.log("Päivämäärän muokkaus");
-    //console.log(formattedBookData);
-    // Haetaan apiData
-    const coverData = await getApiData();
-    //console.log("Api funktion data");
-    //console.log(coverData);
-
-    // Muotoillaan päivämäärä jokaiselle kirjalle
-    const formattedBookData = coverData.map(book => {
+    // Format date data
+    const formattedBookData = bookData.map(book => {
       return {
         ...book,
         data: format(new Date(book.data), 'yyyy-MM-dd')
@@ -123,18 +81,7 @@ app.get("/", async (req, res) => {
     });
 
 
-    // Yhdistetään molempien taulukoiden vastaavat elementit
-    /*const combinedData = formattedBookData.map((book, index) => {
-      return {
-        ...book,          // Lisää kaikki book-objektin kentät
-        coverUrl: coverData[index] // Lisää coverData-taulukon vastaava URL
-      };
-    });*/
-    //console.log("Yhdistetyt arrayt");
-    //console.log(combinedData);
-
-
-    // Renderöidään alkunäyttö ja viedään sinne tarvittava data
+    // Render index.ejs and pass the book data
     res.render("index.ejs", {
     bookList: formattedBookData
   });
@@ -149,7 +96,7 @@ app.get("/", async (req, res) => {
 
 // ADD NEW BOOK
 
-// Routes to render the edit page
+// Routes to render the new book screen
 app.get("/new", (req, res) => {
   res.render("addEditBook.ejs", { heading: "New book", submit: "Add a new book" });
 });
@@ -158,7 +105,6 @@ app.get("/new", (req, res) => {
 // Uuden kirjan lisäyksen submitin jälkeiset toimet
 app.post("/newBook", async (req, res) => {
 
-  // Mitä tapahtuu, kun halutaan lisätä uusi kirja?
 
   // 1. Haetaan tiedot newBookFormista
   const newTitle = req.body.title;
@@ -173,7 +119,6 @@ app.post("/newBook", async (req, res) => {
     [newTitle, newRating, newDate, newContent, newCover]
   );
 
-  //console.log(result.rows);
   // 3. Siirrytään takaisin etusivulle
   res.redirect("/");
 
@@ -189,13 +134,8 @@ app.post("/edit/:id", async (req, res) => {
   // 1. tarvitaan id UI:n puolelta 
   const id = req.params.id;
 
-  //console.log(id); // Tulostaa 1
-
   // Tulee siis hakea dataa halutulla id:llä databasesta
   const result = await db.query("SELECT * FROM books WHERE id = $1", [id]);
-
-  //console.log(result.rows); // Yhden kirjan tiedot
-  //console.log(result.rows.data); // undefined
 
   res.render("addEditBook.ejs", {
     heading: "Edit the book",
@@ -211,8 +151,6 @@ app.post("/bookEdit/:id", async (req, res) => {
 
   const id = req.params.id;
 
-  //console.log(req.body.date) // undefined
-
   // Haetaan tarvittava data
   const editTitle = req.body.title;
   const editRating = req.body.rating;
@@ -224,7 +162,6 @@ app.post("/bookEdit/:id", async (req, res) => {
   await db.query("UPDATE books set title = $1, rating = $2, data = $3, content = $4, cover = $5 WHERE id = $6",
     [editTitle, editRating, editDate, editContent, editCover, id]
   );
-
 
   // 3. Siirrytään takaisin etusivulle
   res.redirect("/");
@@ -250,8 +187,6 @@ app.delete('/delete/:id', async (req, res) => {
     res.status(500).send('Virhe poistettaessa itemiä');
   }
 });
-
-
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

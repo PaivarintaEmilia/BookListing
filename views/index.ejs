@@ -10,7 +10,6 @@
         <div id="add-new-book-container" class="blur-background">
             <p>Add a new book to the collection:</p>
             <a href="/new" id="add-new-btn">New book</a>
-            <!--<a href="/test">PRESS ME FOR TESTING</a>-->
         </div>
         <div id="quote-container">
             <p id="quote">“A reader lives a thousand lives before he dies . . . The man who never reads lives only one.”</p>
@@ -34,9 +33,7 @@
             <p><%= book.content %></p>
         </div>
         <div id="book-img-container">
-            <!--Lisätään source uuden kuvan mukana joka tulee listalta-->
             <img src="<%= book.coverUrl %>" alt="Book-cover">
-            <!--<img src="#" alt="Book-cover" class="cover-delete-later">-->
         </div>
     </div>
     <div id="edit-book-data-container">
@@ -48,7 +45,6 @@
                 </button>
             </form>
             <!--Delete book item-->
-  
             <button class="delete-btn delete" data-id="<%= book.id %>">
                 <img class="icon" src="/icons/delete-icon.svg" alt="delete icon">
             </button>
